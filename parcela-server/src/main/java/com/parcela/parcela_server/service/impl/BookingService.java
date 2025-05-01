@@ -38,8 +38,8 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    public List<Booking> getUserBookings(Long customerId) {
-        Customer customer = customerRepository.findById(customerId)
+    public List<Booking> getUserBookings(String customerId) {
+        Customer customer = customerRepository.findById(Long.valueOf(customerId))
                 .orElseThrow(() -> new CustomException("Customer not found"));
         return bookingRepository.findByCustomer(customer);
     }

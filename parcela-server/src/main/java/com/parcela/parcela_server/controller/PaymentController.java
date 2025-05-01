@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/payments")
+@CrossOrigin(origins = "*")
 public class PaymentController {
+
     @Autowired
     private PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<Payment> makePayment(@RequestBody PaymentDto paymentDto) {
-        return ResponseEntity.ok(paymentService.makePayment(paymentDto));
+    public ResponseEntity<?> makePayment(@RequestBody PaymentDto paymentDto) {
+        try {
+            Payment payment = paymentService.makePayment(paymentDto);
+            return ResponseEntity.ok(payment);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

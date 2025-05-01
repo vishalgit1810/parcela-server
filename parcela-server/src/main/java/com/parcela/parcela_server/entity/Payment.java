@@ -11,7 +11,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime timeDate = LocalDateTime.now();
-    private String paymentType; // CARD, CASH
     private double amount;
     private String status = "PENDING"; // PENDING, COMPLETED, FAILED
 

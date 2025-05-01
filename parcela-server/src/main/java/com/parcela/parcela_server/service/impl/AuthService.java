@@ -20,16 +20,7 @@ public class AuthService {
     }
 
     public Customer login(LoginRequest loginRequest) {
-        if (loginRequest.isAdmin()) {
-            if ("admin@parcel.com".equals(loginRequest.getEmail()) && "admin123".equals(loginRequest.getPassword())) {
-                Customer admin = new Customer();
-                admin.setCustId(0L);
-                admin.setEmail("admin@parcel.com");
-                return admin;
-            }
-            throw new CustomException("Invalid admin credentials");
-        }
-        return customerRepository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword())
+        return customerRepository.findByCustIdAndPassword(loginRequest.getUsername(), loginRequest.getPassword())
                 .orElseThrow(() -> new CustomException("Invalid credentials"));
     }
 }
