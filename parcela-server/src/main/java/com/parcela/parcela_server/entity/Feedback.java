@@ -1,5 +1,6 @@
 package com.parcela.parcela_server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -15,9 +16,11 @@ public class Feedback {
 
     @ManyToOne
     @JoinColumn(name = "cust_id")
+    @JsonIgnore
     private Customer customer;
 
     @OneToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Booking booking;
 }

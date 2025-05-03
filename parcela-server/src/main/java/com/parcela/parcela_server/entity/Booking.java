@@ -1,5 +1,6 @@
 package com.parcela.parcela_server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -25,11 +26,14 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "cust_id")
+    @JsonIgnore
     private Customer customer;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Payment payment;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Feedback feedback;
 }

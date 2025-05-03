@@ -8,14 +8,12 @@ import java.util.stream.Stream;
 public class CustomerIdGenerator implements IdentifierGenerator {
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) {
-        String query = "SELECT c.custId FROM Customer c ORDER BY c.custId DESC";
-        Stream<String> ids = session.createQuery(query, String.class).stream();
-
-        Long maxId = ids.map(s -> s.replace("C", ""))
-                .mapToLong(Long::parseLong)
-                .max()
-                .orElse(0L);
-
-        return "C" + (maxId + 1);
+        String query = "SELECT MAX(c.custId) FROM Customer c";
+        Long maxId = (Long) session.createQuery(query).uniqueResult();
+        if (maxId == null) {
+            maxId = 999L; // So the first ID will be 1000
+        }
+        return maxId + 1;
     }
+
 }

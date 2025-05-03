@@ -58,7 +58,6 @@ public class PaymentService {
         try {
             // Create and save payment
             Payment payment = new Payment();
-            payment.setPaymentType(paymentDto.getPaymentType());
             payment.setAmount(booking.getServiceCost());
             payment.setStatus("COMPLETED");
             payment.setCustomer(customer);

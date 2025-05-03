@@ -13,14 +13,15 @@ public class AuthService {
     private CustomerRepository customerRepository;
 
     public Customer register(Customer customer) {
-        if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
-            throw new CustomException("Email already registered");
+        if (customerRepository.findByCustId(customer.getCustId()).isPresent()) {
+            throw new CustomException("Customer ID already registered");
         }
         return customerRepository.save(customer);
     }
 
+
     public Customer login(LoginRequest loginRequest) {
-        return customerRepository.findByCustIdAndPassword(loginRequest.getUsername(), loginRequest.getPassword())
+        return customerRepository.findByCustIdAndPassword(loginRequest.getCustomerId(), loginRequest.getPassword())
                 .orElseThrow(() -> new CustomException("Invalid credentials"));
     }
 }
